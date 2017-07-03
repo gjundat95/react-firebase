@@ -7,9 +7,11 @@ import {
   Button,
   TouchableOpacity,
   Alert,
+  AsyncStorage
 } from 'react-native';
 
 import { login, register } from '../Firebase';
+import { save, get } from '../Util/AsyncStore';
 
 export default class Login extends Component {
   constructor(props) {
@@ -20,8 +22,15 @@ export default class Login extends Component {
     }
   };
 
+  componentWillMount() {
+  };
+
+  componentDidMount() {
+
+  };
+
   _changeUsername = username => {
-    this.setState({ username })
+    this.setState({ username });
   };
 
   _changePassword = password => {
@@ -29,22 +38,23 @@ export default class Login extends Component {
   };
 
   _btnRegister = () => {
-      register(this.state.username, this.state.password, (res) => {
-          if(!res.isSuccess){
-            Alert.alert("Error: "+ res.message);
-          }else{
-            Alert.alert("Success: "+ res.message);
-          } 
-      });
+    register(this.state.username, this.state.password, (res) => {
+      if (!res.isSuccess) {
+        Alert.alert("Error: " + res.message);
+      } else {
+        Alert.alert("Success: " + res.message);
+      }
+    });
   };
 
   _btnLogin = () => {
-    login(this.state.username, this.state.password, (res)=>{
-      if(!res.isSuccess){
-        Alert.alert('Error: '+res.message);
-      }else{
-        Alert.alert('Success: '+res.message);
-        this.props.navigation.navigate('Home',{});
+    login(this.state.username, this.state.password, (res) => {
+      if (!res.isSuccess) {
+        Alert.alert('Error: ' + res.message);
+      } else {
+        Alert.alert('Success: ' + res.message);
+        save('Key_Login', 'true');
+        this.props.navigation.navigate('Home', {});
       }
     });
   };
@@ -94,7 +104,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
   },
-  login:{
+  login: {
     marginTop: 50,
     justifyContent: 'center',
     alignItems: 'center',

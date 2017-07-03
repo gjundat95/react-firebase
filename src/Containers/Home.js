@@ -8,23 +8,58 @@ import React, { Component } from 'react';
 import {
   StyleSheet,
   Text,
-  View
+  View,
+  TouchableOpacity,
+  Alert,
+
 } from 'react-native';
 
-export default class Firebase extends Component {
+import * as firebase from '../Firebase';
+import { save, get } from '../Util/AsyncStore';
+
+export default class Home extends Component {
+
+  constructor(props){
+    super(props);
+  };
+
+  componentWillMount () {
+    this.checkLogin();
+  };
+
+  checkLogin=()=>{
+    get('Key_Login').then(value => {
+      if (value === 'false') {
+        this.props.navigation.navigate('Login', {});
+      }
+    });
+  };
+
+  _btnLogout=()=>{
+      Alert.alert('hello world');
+      firebase.logout().then(function(res){
+          firebase.logout();
+      });
+      save('Key_Login', 'false');
+      
+  };
+  
   render() {
     return (
       <View style={styles.container}>
-        <Text style={styles.welcome}>
-          Welcome Home
-        </Text>
-        <Text style={styles.instructions}>
-          To get started, edit index.android.js
-        </Text>
-        <Text style={styles.instructions}>
-          Double tap R on your keyboard to reload,{'\n'}
-          Shake or press menu button for dev menu
-        </Text>
+        <TouchableOpacity 
+          onPress = {this._btnLogout}
+        >
+          <View>
+            <Text>Logout</Text>
+          </View>
+        </TouchableOpacity>
+        <TouchableOpacity>
+          <View>
+            <Text>Add Image</Text>
+          </View>
+        </TouchableOpacity>
+
       </View>
     );
   }

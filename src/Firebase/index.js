@@ -46,9 +46,9 @@ export const login = async (email, password, callback) => {
     }
 };
 
-export const logout = () => {
+export const logout = async () => {
     try {
-        firebase.auth().signOut();
+        await firebase.auth().signOut();
     } catch (error) {
         console.log(error);
     }

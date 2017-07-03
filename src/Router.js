@@ -15,16 +15,18 @@ import LoginScreen from './Containers/Login';
 import HomeScreen from './Containers/Home';
 
 export const HomeStack = StackNavigator({
+
+    Home: {
+        screen: HomeScreen,
+        navigationOptions: {
+            title: 'Home'
+        }
+    },
     Login: {
         screen: LoginScreen,
         navigationOptions: {
             title: 'Login'
         }
     },
-    Home: {
-        screen: HomeScreen,
-        navigationOptions: {
-            title: 'Home'
-        }
-    }
 });
+

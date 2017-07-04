@@ -42,7 +42,7 @@ export default class Login extends Component {
       if (!res.isSuccess) {
         Alert.alert("Error: " + res.message);
       } else {
-        Alert.alert("Success: " + res.message);
+        Alert.alert("Register Success");
       }
     });
   };
@@ -52,7 +52,7 @@ export default class Login extends Component {
       if (!res.isSuccess) {
         Alert.alert('Error: ' + res.message);
       } else {
-        Alert.alert('Success: ' + res.message);
+        Alert.alert('Login success');
         save('Key_Login', 'true');
         this.props.navigation.navigate('Home', {});
       }
